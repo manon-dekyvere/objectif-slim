@@ -1,21 +1,29 @@
+function search_ingredient(ingredient) {
+    var ingredients = [];
+    fetch('https://world.openfoodfacts.org/cgi/search.pl?search_terms=' + ingredient + '&search_simple=1&action=process&json=1&page_size=1000')
+        .then(function (response) {
+            response.json().then(function (data) {
+                for (var i = 0; i < data.products.length; i++) {
+                    if (data.products[i].product_name.includes(ingredient)) {
+                        ingredients.push(data.products[i]);
+                        /*var listItem = document.createElement('li');
+                        listItem.innerHTML = data.products[i].product_name;
+                        myList.appendChild(listItem);*/
+                    }
+                }
+                return ingredients;
+            })
+        })
+}
 
 var product = "egg";
-fetch('https://world.openfoodfacts.org/cgi/search.pl?search_terms='+product+'&search_simple=1&action=process&json=1&page_size=1000')
-    .then(function(response) { return response.json(); })
-    .then(function(data)
-        {
-            var myList = document.getElementById('products_list');
-            for (var i = 0; i < data.products.length; i++)
-            {
-                if(data.products[i].product_name.includes(product))
-                {
-                    var listItem = document.createElement('li');
-                    listItem.innerHTML = data.products[i].product_name;
-                    myList.appendChild(listItem);
-                }
 
-            }
-        });
+function submitForm() {
+    var ingredient = document.getElementById("ingredient").value;
+    console.log( search_ingredient('lait'));
+
+}
+
 /*
     .then(function(data) {
         data.json().then(function(value){
