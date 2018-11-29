@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Tinder for food</title>
     <script src="fetch_food_api.js"></script>
+    <link type="text/css" href="index_style.css">
 </head>
 <body>
     <!--<div id="main_content">
@@ -15,13 +16,23 @@
     <h2>Liste des ingrédients</h2>
 
     <form>
+
+    </form >
+        Search:
+        <input id="search" type="text">
+        <input type="button" value="Find Products" onclick="get_product_list();" >
+    <form>
+        <ul>
         Ingrédient:<br>
-        <input id = "ingredient" type="text"  >
-        <br>
-        Quantité:<br>
-        <input id ="quantite" type="number" >
+            <select id = "ingredient_1" >
+            </select>
+            <br>
+            Quantité:<br>
+            <input id ="quantity_1" type="number" >
+            <h3 id="result_1"></h3>
+        </ul>
         <br><br>
-        <input type="button" value="Soumettre" onclick="submitForm();" >
+        <input type="button" id="_1" value="Soumettre" onclick="submitForm('_1');" >
     </form>
 
 
