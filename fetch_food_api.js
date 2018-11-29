@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 // global variable to contain all the products we searched for
 let ingredients = [];
 // array to contain reciepe_element : { product : Object, quantity : number }
@@ -34,8 +35,33 @@ async function submitForm() {
     var ingredient = document.getElementById("ingredient").value;
     console.log(await search_ingredient('lait'));
 
+=======
+
+async function submitForm() {
+    var ingredient = document.getElementById("ingredient").value;
+    console.log(await search_ingredient('lait'));
+
 }
 
+async function search_ingredient(ingredient) {
+    var ingredients = [];
+    fetch('https://world.openfoodfacts.org/cgi/search.pl?search_terms=' + ingredient + '&search_simple=1&action=process&json=1&page_size=1000')
+        .then(function (response) {
+            response.json().then(function (data) {
+                for (var i = 0; i < data.products.length; i++) {
+                    if (data.products[i].product_name.includes(ingredient)) {
+                        ingredients.push(data.products[i]);
+
+                    }
+                }
+                return ingredients;
+            })
+        })
+>>>>>>> ea5287cfc45e5824d8b0aaa1b06dfcc11f43f63b
+}
+console.log(await search_ingredient('lait'));
+
+<<<<<<< HEAD
 async function search_ingredient(ingredient) {
     var ingredients = [];
     fetch('https://world.openfoodfacts.org/cgi/search.pl?search_terms=' + ingredient + '&search_simple=1&action=process&json=1&page_size=1000')
@@ -114,6 +140,10 @@ async function get_product_list(){
         select_element.innerHTML += '<option value="'+products[i].id+'">'+products[i].product_name+'</option>'
     }
 }
+=======
+var product = "egg";
+
+>>>>>>> ea5287cfc45e5824d8b0aaa1b06dfcc11f43f63b
 =======
 var product = "egg";
 
