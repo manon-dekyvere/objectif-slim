@@ -1,0 +1,4 @@
+API Open Food Facts
+
+L’API Open Food Facts est une API recensant des informations relatives à la nourriture (photos, informations nutritionnelles, composition…). 
+On peut y rechercher / filtrer par produit ou par marque. Cette API gratuite et ouverte à tous est basée sur JSON et accessible via HTTP à l'aide des informations de code à barres du produit. L'API est toujours expérimentale et peut changer. 
