@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tinder for food</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="fetch_food_api.js"></script>
     <link type="text/css" href="index_style.css">
 </head>
@@ -15,12 +16,13 @@
 
     <h2>Liste des ingrédients</h2>
 
-    <form>
-
+    <form id="myform">
+        Search:
+        <input id="search_ingredient_1" type="text">
+        <input type="button" value="Find Products" onclick="get_product_list('ingredient_1');" >
+        <input type="submit" value="sub" >
     </form >
-    Search:
-    <input id="search_ingredient_1" type="text">
-    <input type="button" value="Find Products" onclick="get_product_list('ingredient_1');" >
+
     <form>
         <ul>
             Ingrédient:<br>
@@ -35,10 +37,12 @@
         <input type="button" id="_1" value="Soumettre" onclick="submitForm('_1');" >
     </form>
 
+    <form>
+        Search:
+        <input id="search_ingredient_2" type="text">
+        <input type="button" value="Find Products" onclick="get_product_list('ingredient_2');" >
     </form >
-    Search:
-    <input id="search_ingredient_2" type="text">
-    <input type="button" value="Find Products" onclick="get_product_list('ingredient_2');" >
+
     <form>
         <ul>
             Ingrédient:<br>

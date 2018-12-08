@@ -1,7 +1,9 @@
+
 // global variable to contain all the products we searched for
 let ingredients = [];
 // array to contain reciepe_element : { product : Object, quantity : number }
 let recipe_ingeredients =[];
+
 
 /**
  * Searches for an ingeredient in the API
