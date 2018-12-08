@@ -1,7 +1,7 @@
 // global variable to contain all the products we searched for
 let ingredients = [];
 // array to contain reciepe_element : { product : Object, quantity : number }
-let reciepie =[];
+let recipe_ingeredients =[];
 
 /**
  * Searches for an ingeredient in the API
@@ -38,15 +38,17 @@ async function search_ingredient(ingredient) {
 async function submitForm(id) {
     let ingredient_id = document.getElementById('ingredient'+id).value;
     let quantity = document.getElementById('quantity'+id).value;
-    let product = retrieve_product_b_id(ingredient_id);
+    let product = retrieve_product_by_id(ingredient_id);
+    recipe_ingeredients.push({id: ingredient_id, quantity: quantity});
     console.log(product.product_name);
     console.log(get_energy_per_100u(product));
     console.log(quantity * get_energy_per_100u(product).Kcal / 100 );
+    console.log(recipe_ingeredients);
 }
 
 /**
  * computes the energy per 100 u (g or ml) in both Cal and Kj
- * 1 Cal => 4,184 Kj
+ * 1 Cal => 4.184 Kj
  * First retrieves the enrgy and enrgy_unit and from there construct an object
  * @returns Object
  * {
@@ -81,10 +83,12 @@ function get_energy_per_100u(product)
     }
 }
 
-async function get_product_list(){
-    let search_term = document.getElementById("search").value;
+async function get_product_list(ingredient_element_id){
+    console.log("search_"+ingredient_element_id);
+    let search_term = document.getElementById("search_"+ingredient_element_id).value;
     let products = await search_ingredient(search_term);
-    let select_element = document.getElementById("ingredient_1");
+    let select_element = document.getElementById(ingredient_element_id);
+    select_element.innerHTML = '';
     for (var i = 0; i < products.length; i++)
     {
         select_element.innerHTML += '<option value="'+products[i].id+'">'+products[i].product_name+'</option>'
@@ -94,7 +98,7 @@ async function get_product_list(){
 /**
  * function to retrieve product by id from array
  */
-function retrieve_product_b_id(id)
+function retrieve_product_by_id(id)
 {
     for(let i = 0; i < ingredients.length; i++)
     {
@@ -104,13 +108,3 @@ function retrieve_product_b_id(id)
         }
     }
 }
-/*
-    .then(function(data) {
-        data.json().then(function(value){
-            var div = document.getElementById('main_content');
-            div.innerHTML += value;
-        })
-})
-.catch(function(error) {
-    // If there is any error you will catch them here
-});*/

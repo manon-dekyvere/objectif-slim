@@ -18,21 +18,39 @@
     <form>
 
     </form >
-        Search:
-        <input id="search" type="text">
-        <input type="button" value="Find Products" onclick="get_product_list();" >
+    Search:
+    <input id="search_ingredient_1" type="text">
+    <input type="button" value="Find Products" onclick="get_product_list('ingredient_1');" >
     <form>
         <ul>
-        Ingrédient:<br>
+            Ingrédient:<br>
             <select id = "ingredient_1" >
             </select>
             <br>
-            Quantité:<br>
+            Quantité (en ml ou en g):<br>
             <input id ="quantity_1" type="number" >
             <h3 id="result_1"></h3>
         </ul>
         <br><br>
         <input type="button" id="_1" value="Soumettre" onclick="submitForm('_1');" >
+    </form>
+
+    </form >
+    Search:
+    <input id="search_ingredient_2" type="text">
+    <input type="button" value="Find Products" onclick="get_product_list('ingredient_2');" >
+    <form>
+        <ul>
+            Ingrédient:<br>
+            <select id = "ingredient_2" >
+            </select>
+            <br>
+            Quantité (en ml ou en g):<br>
+            <input id ="quantity_2" type="number" >
+            <h3 id="result_2"></h3>
+        </ul>
+        <br><br>
+        <input type="button" id="_2" value="Soumettre" onclick="submitForm('_2');" >
     </form>
 
 
