@@ -2,17 +2,21 @@
      <!DOCTYPE html>
   <html>
     <head>
-      <div class="center">
-        <img src="fhead.png"  height="200" class="center"></a>
-      </div>
-      
-      <!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-      <link  rel="stylesheet" href="css/admin.css" />
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- Importing some style -->
+        <link type="text/css" rel="stylesheet" href="css/mainStyle.css">
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <!-- Importing scripts so that it works well-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script src="fetch_food_api.js"></script>
+
 
       <title>MIAMSH</title>
 
@@ -20,131 +24,80 @@
 
     <body>
     	<p align="center">
-    	<br>
-      <font color="green" size="6" class="center">MIAMSH ! </font>
+    	<img src="logo.png"  height=150 =  width=400 ></a>
   		</p>
 
-    	<p align="justify"> <font color="green" size="4"><b>MIAMSH </b></font> <font color="gray" size="3"> est votre nouvel allié <b> minceur !</b>  Alliant <b>simplicité </b> et <b>efficacité</b>, laissez vous tenter par son utilisation. 
-Son objectif est simple : vous faire<b> mincir de façon durable</b>, tout en vous apprenant à <b>manger équilibré.</b>
-Pour cela, deux fonctions : vous pouvez rentrer le menu de votre repas en indiquant tous les ingrédients et leur quantité, 
-<font color="green" size="4"><b>MIAMSH</b></font> vous dira le nombre de <b>calories</b>, et le <b>temps de course à pied </b> nécessaire pour toutes les éliminer.
-Le second objectif vous permet de choisir un menu en fonction du nombre de calories que vous souhaitez ingérer : vous
-vous composez donc un <b> menu équilibré en fonction de votre apport calorique journalier !</b></font>
+    	<p class="description">
+            MIAMSH est votre nouvel allié minceur! Alliant simplicité et efficacité, laissez vous tenter par son utilisation.
+            Son objectif est simple : vous faire <b>mincir</b> de façon durable, tout en vous apprenant à manger équilibré.
+            Pour cela rentrez le menu de votre repas en indiquant tous les ingrédients et leur quantité,
+            MIAMSH vous dira le nombre de <b>calories</b>, et le temps nécessaire de pratique de <b>sport</b> pour  les éliminer toutes.
+        </p>
+        <br/>
+        <div id="search_ingredient_forms_container">
+              <form class="search_ingredient"  id="search_form_ingredient_1">
+              </form >
 
-</p>
+        </div>
+        <div class="row">
+            <form  id="ingredients_form" class="col s12">
 
+            </form>
 
-    	<br>
-    	<div class="row center"><font size=8>Informations sur votre recette :</font>
-   			<div class="row nezo">
-    			<div class="input-field col s6 nezo">
-      				<input value="" id="first_name2" type="text" class="validate">
-      				<label class="active " for="first_name2">Nom de la recette :</label>
-    			</div>
-  			</div>
-		</div>
-  	<div>
+        </div>
 
-  	 <table class="highlight responsive-table tabcenter ">
-        <thead>
-          <tr class="center">
-              <th><font size=5>Ingrédient</font> </th>
-              <th><font size=5>Quantité</font></th>
-          </tr>
-        </thead>
+        <br>
+        <div class="center">
+            <button  id="add_ingredient" class="btn waves-effect waves-light" type="reset" name="action">Ajouter un ingrédient
+                <i class="material-icons left">add_box</i>
+            </button>
+            <br/>
+            <br/>
 
-        <tbody>
-          <tr>
-            <td>  
             <div class="row">
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="input_text" type="text" data-length="10">
-            <label for="input_text">Entrez un ingrédient</label>
-          </div>
-        </div></td>
-            <td>  <div class="row">
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="input_text" type="text" data-length="10">
-            <label for="input_text">Entrez une quantité</label>
-          </div>
-        </div></td>
-          </tr>
-          <tr>
-            <td>  <div class="row">
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="input_text" type="text" data-length="10">
-            <label for="input_text">Entrez un ingrédient</label>
-          </div>
-        </div></td>
-            <td>  <div class="row">
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="input_text" type="text" data-length="10">
-            <label for="input_text">Entrez une quantité</label>
-          </div>
-        </div></td>
-          </tr>
-          <tr>
-            <td><div class="row">
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="input_text" type="text" data-length="10">
-            <label for="input_text">Entrez un ingrédient</label>
-          </div>
-        </div></td>
-            <td><div class="row">
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="input_text" type="text" data-length="10">
-            <label for="input_text">Entrez une quantité</label>
-          </div>
-        </div></td>
-          </tr>
+                <form  id="weight_form" class="col s12">
+                    <div class="input-field col s12">
+                        <input required id="weight_input" value="70"  type="number"  min="5" step="0.01" class="validate">
+                        <label for="weight_input">Votre poids (Kg) </label>
+                    </div>
+                </form>
 
-			
+            </div>
 
-        </tbody>
-        
-        
-
-      </table>
-      
-     </div class="center">   
-    
-     <br>
- <div class="center"> <font color="green" size="5"> Ajouter une nouvelle ligne :  </font>  <a class="btn-floating btn-large waves-effect waves-light green"><i class="material-icons">add</i></a> </div>
-    <br>
-    <br>
-     <div class="center">
-     <button class="btn waves-effect btn-large waves-light green nezog" type="submit" name="action">Envoyer
-  	  		<i class="material-icons right">send</i>
-	</button>
-
-	 <button class="btn waves-effect btn-large waves-light red" type="reset" name="action">Effacer
-    	<i class="material-icons left">clear</i>
-  	</button>
-
-  </div>
+             <button class="btn waves-effect waves-light centere" type="submit" name="action" id="submit_ingredients">Envoyer
+                    <i class="material-icons right">send</i>
+             </button>
+        </div>
 
 
 
-      <!--JavaScript at end of body for optimized loading-->
-      <script type="text/javascript" src="js/materialize.min.js"></script>
 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script type="text/javascript" src="js/materialize.min.js"></script>
 
-      <br>
-      <br>
+        <div id="recipe_calories">
+            <h4> Votre recette en calories </h4>
+            <h5 id="total_calories_title"></h5>
+            <table id="calories_table" class="striped">
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Quantité ( ml ou g)</th>
+                        <th>Calories (Cal)</th>
+                        <th>Calories (Kj)</th>
+                    </tr>
+                </thead>
+                <tbody>
 
+                </tbody>
+            </table>
+        </div>
+        <br/>
+        <br/>
+        <hr>
+        <br/>
+        <h5 id="sports_calories_table_title"> Voici le temps nécessaire de chaque sport pour éliminer las calories contenues dans votre recette</h5>
+         <div id="calories_sports">
+
+
+         </div>
     </body>
   </html>

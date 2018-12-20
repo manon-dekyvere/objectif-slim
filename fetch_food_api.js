@@ -4,8 +4,16 @@ let ingredients = [];
 // array to contain reciepe_element : { product : Object, quantity : number }
 let recipe_ingeredients =[];
 
+// variable to contain retrieved html from healthassist about calories to sport
+let health_assist_results = "";
+// variable containing all sports IDs
+let sports_ids = [];
+
 
 $(document).ready(function () {
+    $("#recipe_calories").hide();
+    $("#sports_calories_table_title").hide();
+    $('select').formSelect();
 
     for (let i = 0; i < 3 ; i++) {
         generate_ingredient_input('ingredients_form', 'search_ingredient_forms_container');
@@ -15,6 +23,13 @@ $(document).ready(function () {
         e.preventDefault();
         get_product_list($(this).attr('id').substring(12));
 
+    });
+    $('#weight_form').on('submit', function(e) {
+        e.preventDefault();
+        submitForm();
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#recipe_calories").offset().top
+        }, 2000);
     });
 
     $('.ingredient_form').on('submit', function(e) {
@@ -42,12 +57,81 @@ $(document).ready(function () {
     });
     $('#submit_ingredients').on('click',function () {
         submitForm();
-    })
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#recipe_calories").offset().top
+        }, 2000);
+    });
+
+
 
 
 
 });
+/*
+    Function to retrieve data from  healthassist website
+ */
+async function get_calories_sport_data(weight, calories){
+    $("#sports_calories_table_title").show();
+    loading_element = "<div id=\"loader_2\" class=\"progress\">\n" +
+        "      <div class=\"indeterminate\"></div>\n" +
+        "  </div>";
+    $('#sports_calories_table_title').after(loading_element);
+    await doCORSRequest({
+        method: 'GET',
+        url: 'http://www.healthassist.net/calories/act-list.php?'+weight+','+calories+',false'
+    }, function processrResults(result) {
+        sports_ids = [];
+        health_assist_results = result;
+        $('#calories_sports').append($.parseHTML(health_assist_results));
 
+        $('#calories_sports').replaceWith($.find('#sport'));
+        thead = "<thead>\n" +
+            "                    <tr>\n" +
+            "                        <th>Sport</th>\n" +
+            "                        <th>Temps nécessaire</th>\n" +
+            "                    </tr>\n" +
+            "                </thead>";
+        $('#sport').find('tr').first().remove();
+        $('#sport').prepend(thead);
+        $('#sport').attr('class',"highlight");
+        $('#sport').find("tr").each(function(  ) {
+            sport_name = $( this ).children('td').first().text();
+            new_id = sport_name.toLowerCase().replace(/\s/g,'_').replace(/,/g,'');
+            sports_ids.push(new_id);
+           //$( this ).hide();
+            $( this ).attr('id', new_id );
+            $( this ).children('td').first().attr('id','SPORT_IS_'+new_id);
+            $( this ).children('td').last().attr('id','TIME_FOR_'+new_id);
+            $('#loader_2').remove();
+        });
+/*        for (let i = 0; i <4 ; i++) {
+            a_sport = sports_ids[Math.floor(Math.random()*sports_ids.length)];
+            $('#'+a_sport).show();
+        }
+        var a_sport = sports_ids[Math.floor(Math.random()*sports_ids.length)];
+        console.log($('#'+a_sport));
+        return Promise.resolve(sports_ids); */
+    });
+}
+
+/*
+Function to do a CORS request through a Proxy
+ */
+
+function doCORSRequest(options, printResult) {
+    var x = new XMLHttpRequest();
+    var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
+    x.open(options.method, cors_api_url + options.url);
+    x.onload = x.onerror = function() {
+        printResult(
+            x.responseText || ''
+        );
+    };
+    if (/^POST/i.test(options.method)) {
+        x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    }
+    x.send(options.data);
+}
 /**
  * Function to generate an ingredient field
  */
@@ -64,31 +148,45 @@ function generate_ingredient_input(form_id, search_forms_container_id)
     }
     new_ingredient_index = last_ingredient_index +1;
     console.log(new_ingredient_index);
-   //$('#'+form_id).html($('#'+form_id).html() + "hahahha");
 
     new_ingredient_selector_html =
-        " <div class=\"ingredient_overall_container\" id=\"overall_container_for_ingredient_"+ new_ingredient_index +"\">\n" +
-        "    <div id=\"search_form_container_ingredient_"+ new_ingredient_index +"\" class=\"search_form_container\">\n" +
-        "            Search\n" +
-        "            <input id=\"search_input_ingredient_"+ new_ingredient_index +"\" type=\"text\" form=\"search_form_ingredient_"+ new_ingredient_index +"\">\n" +
-        "            <input type=\"submit\" value=\"sub\" form=\"search_form_ingredient_"+ new_ingredient_index +"\" >\n" +
-        "    </div>\n" +
-        "    <div id=\"search_form_selector_ingredient_"+ new_ingredient_index +"\" class=\"search_form_selector\">\n" +
-        "            Ingrédient:\n" +
-        "            <select id=\"ingredient_"+ new_ingredient_index +"\" disabled>\n" +
-        "<option>   Utilisez la barre de recherche au dessus pour rechercher les produits puis sélectionner un produit ici   </option>"+
-        "            </select>\n" +
-        "            <br>\n" +
-        "            Quantité (en ml ou en g):<br>\n" +
-        "            <input id =\"quantity_"+ new_ingredient_index +"\" type=\"number\" disabled>\n" +
-        "     </div>\n" +
-        " <button class = \"delete_ingredient_button\" type=\"button\"  id =\"delete_ingredient_"+ new_ingredient_index +"\">X</button>\n" +
-        "        </div>";
+       "<div class=\"ingredient_overall_container\" id=\"overall_container_for_ingredient_"+ new_ingredient_index +"\">\n" +
+        "<div class=\"row search_form_container\" id=\"search_form_container_ingredient_"+ new_ingredient_index +"\">" +
+        "                        <div class=\"input-field col s12\">\n" +
+        "                            <input id=\"search_input_ingredient_"+ new_ingredient_index +"\" type=\"text\" form=\"search_form_ingredient_"+ new_ingredient_index +"\" class=\"validate\">\n" +
+        "                            <label for=\"search_input_ingredient_"+ new_ingredient_index +"\">Rechercher un Ingrédient par mot clé</label>\n" +
+        "                            <input type=\"submit\" value=\"Rechercher\" form=\"search_form_ingredient_"+ new_ingredient_index +"\" class=\"btn waves-effect waves-light centere\" >\n" +
+        "                        </div>\n" +
+        "                    </div>\n" +
+        "                    <div id=\"search_form_selector_ingredient_"+ new_ingredient_index +"\" class=\"search_form_selector row\">\n" +
+        "                        <div class=\"input-field col s6\">\n" +
+        "                            <select class =\"ingredient_input\"id=\"ingredient_"+ new_ingredient_index +"\">\n" +
+        "                                <option value=\"\" disabled selected>Recherchez les produits puis en sélectionner un produit ici\n" +
+        "                                </option>\n" +
+        "                            </select>\n" +
+        "                            <label>Sélectioner Porduit</label>\n" +
+        "                        </div>\n" +
+        "\n" +
+        "                        <div class=\"input-field col s4\">\n" +
+        "                            <input disabled value=\"Quantité\"  id =\"quantity_"+ new_ingredient_index +"\" type=\"number\" min=\"0\"  class=\"quantity_input validate\">\n" +
+        "                            <label for=\"quantity_"+ new_ingredient_index +"\">Quantité</label>\n" +
+        "                        </div>\n" +
+        "                        <div class=\"col s2\">\n" +
+        "                            <button  id =\"delete_ingredient_"+ new_ingredient_index +"\" class=\"btn waves-effect waves-light delete_ingredient_button delete_ingredient_button\" type=\"reset\" name=\"action\">Effacer\n" +
+        "                                <i class=\"material-icons left\">clear</i>\n" +
+        "                            </button>\n" +
+        "                        </div>\n" +
+        "\n" +
+        "                    </div>\n" +
+        "                    <br/>"+
+        "                </div>";
 
     new_ingredient_search_form = "<form class=\"search_ingredient\"  id=\"search_form_ingredient_"+ new_ingredient_index +"\">\n" +
         "        </form >";
     $('#'+search_forms_container_id).append(new_ingredient_search_form);
     $('#'+form_id).append(new_ingredient_selector_html);
+    $('#'+"search_form_selector_ingredient_"+ new_ingredient_index ).find('select').formSelect();
+    $('#'+"search_form_selector_ingredient_"+ new_ingredient_index ).find('input').attr("disabled", true);
 
 }
 function delete_ingredient_input(ingredient_index)
@@ -136,35 +234,63 @@ async function search_ingredient(ingredient) {
  * @return {Promise<void>}
  */
 async function submitForm() {
-
+    recipe_ingeredients = [];
+    total_calories = 0;
     $('.search_form_selector').each(function () {
 
-        let quantity = $(this).find('input').val();
+        let quantity = $(this).find('.quantity_input').val();
         let product_id = $(this).find('select').val();
         if (quantity && product_id)
         {
             let product = retrieve_product_by_id(product_id);
-            recipe_ingeredients.push({id: product_id, quantity: quantity, name: product.product_name, energy: get_energy_per_100u(product) });
+            recipe_ingeredients.push({id: product_id,
+                quantity: quantity,
+                name: product.product_name,
+                energy: get_energy_per_100u(product),
+                calories: quantity/100 * get_energy_per_100u(product).Kcal
+            });
+            total_calories += quantity/100 * get_energy_per_100u(product).Kcal;
         }
-        console.log(recipe_ingeredients);
-
-        /*let product = retrieve_product_by_id(ingredient_id);
-        recipe_ingeredients.push({id: ingredient_id, quantity: quantity});
-        console.log(product.product_name);
-        console.log(get_energy_per_100u(product));
-        console.log(quantity * get_energy_per_100u(product).Kcal / 100 );
-        console.log(recipe_ingeredients);*/
 
     });
+    if(recipe_ingeredients.length > 0){
+        weight = 70;
+        if ($('#weight_input').val() && $('#weight_input').val()  > 5 )
+        {
+            weight = $('#weight_input').val();
+        }
+        get_calories_sport_data(weight,total_calories);
+        $("#total_calories_title").html("Le nombre total de calories de votre recette : "+ Math.round(total_calories) +" Cal");
+    }
 
-    /*let ingredient_id = document.getElementById('ingredient'+id).value;
-    let quantity = document.getElementById('quantity'+id).value;
-    let product = retrieve_product_by_id(ingredient_id);
-    recipe_ingeredients.push({id: ingredient_id, quantity: quantity});
-    console.log(product.product_name);
-    console.log(get_energy_per_100u(product));
-    console.log(quantity * get_energy_per_100u(product).Kcal / 100 );
-    console.log(recipe_ingeredients);*/
+    tbody = $("#recipe_calories").find('tbody');
+
+
+    tbody.html("");
+    for (let i = 0; i <recipe_ingeredients.length ; i++) {
+        tbody.append("<tr>" +
+            "<td>"+recipe_ingeredients[i].name +"</td>"+
+            "<td>"+recipe_ingeredients[i].quantity +"</td>"+
+            "<td>"+Math.round(recipe_ingeredients[i].calories) +"</td>"+
+            "<td>"+ Math.round(4.184 *recipe_ingeredients[i].calories) +"</td>"+
+            "</tr>");
+
+    }
+    if(recipe_ingeredients.length > 0)
+    {
+        $("#recipe_calories").show();
+    }else
+    {
+        $("#recipe_calories").hide();
+    }
+
+
+
+
+    console.log(recipe_ingeredients);
+
+
+
 }
 
 /**
@@ -205,11 +331,16 @@ function get_energy_per_100u(product)
 }
 
 async function get_product_list(ingredient_element_id){
-    $(".search_form_container").children('input').attr("disabled", true);
+    $(".search_form_container").find('input').attr("disabled", true);
     let search_term = document.getElementById('search_input_' + ingredient_element_id).value;
+    loading_element = "<div id=\"loader\" class=\"progress\">\n" +
+        "      <div class=\"indeterminate\"></div>\n" +
+        "  </div>";
+    $('#'+('search_input_' + ingredient_element_id)).after(loading_element);
     console.log(ingredient_element_id);
     products = await search_ingredient(search_term);
-    $(".search_form_container").children('input').attr("disabled", false);
+    $('#loader').remove();
+    $(".search_form_container").find('input').attr("disabled", false);
     let select_element = document.getElementById(ingredient_element_id);
     select_element.innerHTML = '';
     if(products.length == 0)
@@ -219,12 +350,15 @@ async function get_product_list(ingredient_element_id){
     {
         for (var i = 0; i < products.length; i++)
         {
-            select_element.innerHTML += '<option value="'+products[i].id+'">'+products[i].product_name+'</option>'
+            if(products[i].nutriments.energy_unit && products[i].nutriments.energy)
+            {
+                select_element.innerHTML += '<option data-icon="'+products[i].image_url+'" value="'+products[i].id+'">'+products[i].product_name+'</option>'
+            }
         }
         $('#'+ingredient_element_id).attr("disabled", false);
         $('#'+'quantity'+ingredient_element_id.substring(10)).attr("disabled", false);
     }
-    products = [];
+    $('#'+ingredient_element_id).formSelect();
 }
 
 /**
