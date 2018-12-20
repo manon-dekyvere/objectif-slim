@@ -8,55 +8,43 @@
     <link type="text/css" href="index_style.css">
 </head>
 <body>
-    <!--<div id="main_content">
-        <ul id="products_list">
-
-        </ul>
-    </div>   -->
-
+    <div id="search_ingredient_forms_container">
+        <!--     <form class="search_ingredient"  id="search_form_ingredient_1">
+            </form >
+            -->
+    </div>
     <h2>Liste des ingrédients</h2>
 
-    <form id="myform">
-        Search:
-        <input id="search_ingredient_1" type="text">
-        <input type="button" value="Find Products" onclick="get_product_list('ingredient_1');" >
-        <input type="submit" value="sub" >
-    </form >
+    <form id="ingredients_form">
+        <!--
+        <div  class="ingredient_overall_container" id="overall_container_for_ingredient_1">
+            <div id="search_form_container_ingredient_1" class="search_form_container">
+                Search
+                <input id="search_input_ingredient_1" type="text" form="search_form_ingredient_1">
+                <input type="submit" value="sub" form="search_form_ingredient_1" >
+            </div>
 
-    <form>
-        <ul>
-            Ingrédient:<br>
-            <select id = "ingredient_1" >
-            </select>
-            <br>
-            Quantité (en ml ou en g):<br>
-            <input id ="quantity_1" type="number" >
-            <h3 id="result_1"></h3>
-        </ul>
-        <br><br>
-        <input type="button" id="_1" value="Soumettre" onclick="submitForm('_1');" >
+            <div id="search_form_selector_ingredient_1" class="search_form_selector">
+                Ingrédient:
+                <select id="ingredient_1" >
+                </select>
+                <br>
+                Quantité (en ml ou en g):<br>
+                <input id ="quantity_1" type="number" >
+            </div>
+            <button class = "delete_ingredient_button" id ="delete_ingredient_1" onclick="delete_ingredient_input('ingredient_1')">X</button>
+
+        </div>
+         -->
+
+
+
+
     </form>
-
-    <form>
-        Search:
-        <input id="search_ingredient_2" type="text">
-        <input type="button" value="Find Products" onclick="get_product_list('ingredient_2');" >
-    </form >
-
-    <form>
-        <ul>
-            Ingrédient:<br>
-            <select id = "ingredient_2" >
-            </select>
-            <br>
-            Quantité (en ml ou en g):<br>
-            <input id ="quantity_2" type="number" >
-            <h3 id="result_2"></h3>
-        </ul>
-        <br><br>
-        <input type="button" id="_2" value="Soumettre" onclick="submitForm('_2');" >
-    </form>
-
+    <button id="add_ingredient">+</button>
+    <br>
+    <br>
+    <button id="submit_ingredients">Affichez Les Résultats</button>
 
 </body>
 </html>
