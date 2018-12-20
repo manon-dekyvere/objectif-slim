@@ -2,11 +2,15 @@
      <!DOCTYPE html>
   <html>
     <head>
+      <div class="center">
+        <img src="fhead.png"  height="200" class="center"></a>
+      </div>
+      
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-
+      <link  rel="stylesheet" href="css/admin.css" />
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -16,23 +20,32 @@
 
     <body>
     	<p align="center">
-    	<img src="logo.png"  height=150 =  width=400 ></a>
+    	<br>
+      <font color="green" size="6" class="center">MIAMSH ! </font>
   		</p>
 
-    	<p> Texte prentation MIAMH .................................................................................................................................. </p>
+    	<p align="justify"> <font color="green" size="4"><b>MIAMSH </b></font> <font color="gray" size="3"> est votre nouvel allié <b> minceur !</b>  Alliant <b>simplicité </b> et <b>efficacité</b>, laissez vous tenter par son utilisation. 
+Son objectif est simple : vous faire<b> mincir de façon durable</b>, tout en vous apprenant à <b>manger équilibré.</b>
+Pour cela, deux fonctions : vous pouvez rentrer le menu de votre repas en indiquant tous les ingrédients et leur quantité, 
+<font color="green" size="4"><b>MIAMSH</b></font> vous dira le nombre de <b>calories</b>, et le <b>temps de course à pied </b> nécessaire pour toutes les éliminer.
+Le second objectif vous permet de choisir un menu en fonction du nombre de calories que vous souhaitez ingérer : vous
+vous composez donc un <b> menu équilibré en fonction de votre apport calorique journalier !</b></font>
+
+</p>
 
 
     	<br>
     	<div class="row center"><font size=8>Informations sur votre recette :</font>
-   			<div class="row center">
-    			<div class="input-field col s6 center">
+   			<div class="row nezo">
+    			<div class="input-field col s6 nezo">
       				<input value="" id="first_name2" type="text" class="validate">
       				<label class="active " for="first_name2">Nom de la recette :</label>
     			</div>
   			</div>
 		</div>
   	<div>
-  	 <table class="highlight responsive-table center">
+
+  	 <table class="highlight responsive-table tabcenter ">
         <thead>
           <tr class="center">
               <th><font size=5>Ingrédient</font> </th>
@@ -96,19 +109,27 @@
           </div>
         </div></td>
           </tr>
+
 			
 
         </tbody>
-      </table>
-     </div>     
-     <br>
+        
+        
 
+      </table>
+      
+     </div class="center">   
+    
+     <br>
+ <div class="center"> <font color="green" size="5"> Ajouter une nouvelle ligne :  </font>  <a class="btn-floating btn-large waves-effect waves-light green"><i class="material-icons">add</i></a> </div>
+    <br>
+    <br>
      <div class="center">
-     <button class="btn waves-effect waves-light centere" type="submit" name="action">Envoyer
+     <button class="btn waves-effect btn-large waves-light green nezog" type="submit" name="action">Envoyer
   	  		<i class="material-icons right">send</i>
 	</button>
 
-	 <button class="btn waves-effect waves-light" type="reset" name="action">Effacer
+	 <button class="btn waves-effect btn-large waves-light red" type="reset" name="action">Effacer
     	<i class="material-icons left">clear</i>
   	</button>
 
@@ -122,6 +143,8 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script type="text/javascript" src="js/materialize.min.js"></script>
 
+      <br>
+      <br>
 
     </body>
   </html>

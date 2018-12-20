@@ -1,0 +1,31 @@
+
+
+body{
+	min-width : 600px;
+	width:1150px;/*Taille de la colonne centrée moins le padding*/
+	margin :auto;/*centrer la colone*/
+	padding:10px;/*margin interne*/
+}
+
+
+
+.nezog{
+
+margin-right: 200px;
+
+}
+
+.nezog{
+
+float: center;
+
+}
+
+
+head{
+
+
+	background-image: url("fhead.png") no-repeat;
+}
+
+
