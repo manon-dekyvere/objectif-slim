@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Tinder for food</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="fetch_food_api.js"></script>
+    <link type="text/css" href="index_style.css">
 </head>
 <body>
     <!--<div id="main_content">
@@ -14,14 +16,45 @@
 
     <h2>Liste des ingrédients</h2>
 
+    <form id="myform">
+        Search:
+        <input id="search_ingredient_1" type="text">
+        <input type="button" value="Find Products" onclick="get_product_list('ingredient_1');" >
+        <input type="submit" value="sub" >
+    </form >
+
     <form>
-        Ingrédient:<br>
-        <input id = "ingredient" type="text"  >
-        <br>
-        Quantité:<br>
-        <input id ="quantite" type="number" >
+        <ul>
+            Ingrédient:<br>
+            <select id = "ingredient_1" >
+            </select>
+            <br>
+            Quantité (en ml ou en g):<br>
+            <input id ="quantity_1" type="number" >
+            <h3 id="result_1"></h3>
+        </ul>
         <br><br>
-        <input type="button" value="Soumettre" onclick="submitForm();" >
+        <input type="button" id="_1" value="Soumettre" onclick="submitForm('_1');" >
+    </form>
+
+    <form>
+        Search:
+        <input id="search_ingredient_2" type="text">
+        <input type="button" value="Find Products" onclick="get_product_list('ingredient_2');" >
+    </form >
+
+    <form>
+        <ul>
+            Ingrédient:<br>
+            <select id = "ingredient_2" >
+            </select>
+            <br>
+            Quantité (en ml ou en g):<br>
+            <input id ="quantity_2" type="number" >
+            <h3 id="result_2"></h3>
+        </ul>
+        <br><br>
+        <input type="button" id="_2" value="Soumettre" onclick="submitForm('_2');" >
     </form>
 
 
